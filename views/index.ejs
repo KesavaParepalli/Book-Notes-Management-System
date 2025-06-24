@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Books I've Read</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #f4f4f9;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    .book-entry {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .book-entry img {
+      max-width: 100px;
+      max-height: 140px;
+      object-fit: contain;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+    }
+    .book-details {
+      flex-grow: 1;
+    }
+    .book-details h2 {
+      margin: 0 0 0.5rem 0;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    a, button {
+      background: #007BFF;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      text-decoration: none;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    button:hover, a:hover {
+      background: #0056b3;
+    }
+    form {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Books I've Read</h1>
+  <a href="/books/new">+ Add New Book</a>
+
+  <% if (books.length === 0) { %>
+    <p>No books found. Start adding some!</p>
+  <% } else { %>
+    <% books.forEach(book => { %>
+      <div class="book-entry">
+        
+        <% if (book.cover_id) { %>
+          <img src="https://covers.openlibrary.org/b/isbn/<%= book.cover_id %>-M.jpg" alt="Cover of <%= book.title %>" />
+        <% } else { %>
+          <div style="width:100px; height:140px; background:#ddd; display:flex; align-items:center; justify-content:center; color:#666; font-size:0.9rem;">No Cover</div>
+        <% } %>
+        <div class="book-details">
+          <h2><%= book.title %></h2>
+          <p><strong>Author:</strong> <%= book.author %></p>
+          <p><strong>Rating:</strong> <%= book.rating %>/5</p>
+          <p><strong>Notes:</strong> <%= book.notes %></p>
+          <p><strong>Read Date:</strong> <%= new Date(book.read_date).toDateString() %></p>
+        </div>
+        <div class="actions">
+          <a href="/books/<%= book.id %>/edit">Edit</a>
+          <form action="/books/<%= book.id %>/delete" method="POST">
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
+</body>
+</html>

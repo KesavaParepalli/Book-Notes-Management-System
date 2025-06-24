@@ -1,0 +1,22 @@
+body {
+  font-family: sans-serif;
+  margin: 40px;
+}
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.book {
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: 250px;
+  border-radius: 8px;
+}
+
+.book img {
+  max-width: 100%;
+  height: auto;
+}
